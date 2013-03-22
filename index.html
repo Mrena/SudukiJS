@@ -1,0 +1,299 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1"
+<title></title>
+    <link rel="stylesheet" href="css/jquery.mobile-1.2.0.css" />
+    <link rel="stylesheet" href="css/mainstyle.css" />
+	<script type="text/javascript" src="js/jquery-1.8.0.js"></script>
+	<script type="text/javascript" src="js/Leaderboard.js"></script>
+	<script type="text/javascript" src="js/sudukiJS.js"></script>
+	<script type="text/javascript" src="js/sudukiFetch.js"></script>
+	<script type="text/javascript" src="js/suduki_logic.js"></script>
+	<script type="text/javascript" src="js/Settings.js"></script>
+	<script type="text/javascript" src="js/jquery.mobile-1.2.0.js"></script>
+</head>
+<body>
+  <div data-role="page" id="index" data-theme="b" data-title="home">
+        <div data-role="header" data-position="fixed" data-theme="c">
+        <h1><span id="gameName">SudukiJS</span></h1>
+        </div>
+    <div data-role="content">
+        <br />
+    <ul data-role="listview" data-inset="true">
+    <li><a href="#game" id="newGame">
+		<h3>New Game</h3>
+        <p>Start a new Game</p>
+        </a>
+    </li>
+    <li data-role="list-divider"></li>
+    <li>
+        <a href="#instructions">
+        <h3>Instructions</h3>
+            <p>Learn how to play the game</p>
+        </a>
+    </li>
+    <li data-role="list-divider"></li>
+    <li>
+        <a href="#settings">
+        <h3>Settings</h3>
+            <p>Tailor your game</p>
+        </a>
+    </li>
+    <li data-role="list-divider"></li>
+    <li>
+        <a href="#leaderboard">
+        <h3>Leaderboard</h3>
+            <p>See your progress.</p>
+        </a>
+    </li>
+    <li data-role="list-divider"></li>
+    <li>
+        <a href="#about">
+        <h3>About</h3>
+            <p>Find out more about the game and it's developer</p>
+        </a>
+    </li>
+    <li data-role="list-divider"></li>
+    <li>
+        <a href="#" id="exit">
+        <h3>Exit</h3>
+            <p>Take some time off.</p>
+        </a>
+    </li>
+    </ul>
+    <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
+				<div style="padding:10px 20px;">
+				  <div id="passwordErr"></div>
+		          <label for="loginPassword" class="ui-hidden-accessible">Password:</label>
+		          <input type="password" name="loginPassword" id="loginPassword" placeholder="password" data-theme="a" />
+		    	  <a data-role="button"   id="signIn" data-theme="b">Unlock</a>
+		    	  <a data-role="button"  id="forgotPassword" data-theme="b">Forgot Password</a>
+				</div>
+		</div>
+		 <div data-role="popup" id="popupforgotpass" data-theme="a" class="ui-corner-all">
+		 <div data-role="header"><a data-role="button" data-icon="back" data-iconpos="notext" style="float:left" id="passwordRecoveryBack">Back</a></div>
+				<div style="padding:10px 20px;">
+				  <h3>Please enter the question and answer you entered in Settings.</h3>
+				  <div id="passwordNote"></div>
+            <label for="recovery_question">Password Recovery Question:</label>
+            <select id="recovery_question">
+            </select>
+            <label for="recovery_answer">Answer:</label>
+            <input type="text" name="recovery_answer" id="recovery_answer" placeholder="answer" value="" />
+		    	  <a data-role="button" data-inset="true" id="showPassword" data-theme="b">Show Password</a>
+		    	  <div id="btnUnlock">
+		    	  </div>
+				</div>
+			</div>
+			
+			<div data-role="popup" id="exitpopup" data-position-to="window" data-theme="a" class="ui-corner-all">
+           <div data-role="header" data-theme="b">
+       <h3>Exit</h3>
+        </div>
+        <div style="padding:10px 20px;">
+        <p>Are you sure?</p>
+            <a href="index.html" id="exitNo" data-role="button" data-inline="true">No</a>
+            <a href="#" id="exitYes" data-role="button" data-inline="true">Yes</a>
+        </div>
+        </div>
+    </div>
+    <div data-role="footer" data-theme="c" data-position="fixed">
+    <div data-role="navbar">
+    <ul>
+    <li><a href="#" id="lock">Tap to Lock</a></li>
+    </ul>
+    </div>
+       
+    </div>
+    </div><!-- end of #index page--> 
+    
+   
+       <!-- start of page #settings -->
+   <div data-role="page" id="settings" data-theme="a" data-title="settings">
+    <div data-role="header" data-theme="a">
+	<h1><span id="gameName">SudukiJS</span></h1>
+    </div>
+        <div alig="left" style="text-align:left" data-theme="a" data-role="content">
+			<ul data-role="listview" data-inset="true">
+			<li><h3>Settings</h3></li>
+			<li id="levels">
+			<label for="level" value='0'>Difficulty:</label>
+			<select id="level" name="level">
+			</select>
+			</li>
+			<li>
+            	<label for="sound">Sound:</label>
+            	<select name="sound" id="sound" data-role="slider">
+            	<span id="soundControl">
+            	<option value="off">Off</option>
+            	<option value="on">On</option>
+            	</span>
+            	</select>
+            </li>
+            <li>
+             	<label for="volume">Volume</label>
+            	<input type="range" value="1" min="1" max="5" id="volume" name="volume" />
+            </li>
+            <li>
+            	<label for="force_feedback">Force Feedback:</label>
+            	<select name="force_feedback" id="force_feedback" data-role="slider">
+            	<option value="off">Off</option>
+            	<option value="on">On</option>
+            	</select>
+            </li>
+            </ul>
+            <div data-role="collapsible">
+            <h3>Advanced Settings</h3>
+            <p>
+            <ul data-role="listview" data-inset="true">
+            <li id="edit_username">
+            	<label for="socialHub_username">SocialHub Username:</label>
+            	<input type="text" name="socialHub_username" id="socialHub_username" placeholder="username" value="" />
+            </li>
+            <li>
+            <label for="password_protect">Password Protect Game:</label>
+            <select name="password_protect" id="password_protect" data-role="slider">
+                 <option value="off">Off</option>
+                 <option value="on">On</option>
+            </select><br /><br />
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" placeholder="password" />
+            </li>
+            <li>
+            <label for="password_recovery_q">Password Recovery Question:</label>
+            <select name="password_recovery_q" id="password_recovery_q">
+            </select>
+            </li>
+            <li>
+            <label for="answer">Answer:</label>
+            <input type="text" name="answer" id="answer" placeholder="answer" value="" />
+            </li>
+              </ul>
+              </p>
+              </div>
+        </div>
+        <div data-role="footer" data-theme="c" data-position="fixed">
+        <a href="#index" class="back" style="width: 300px" data-role="button">Back </a>
+        </div> 
+    </div> <!-- end of page #settings -->
+   
+   <div data-role="page" id="leaderboard" data-theme="b">
+    <div data-role="header" data-theme="c">
+    <h1><span id="gameName"></span></h1>
+    </div>
+        <div data-role="content" data-theme="c">
+            <h3>Leaderboard</h3>
+            <div id="leaderb">
+            
+            
+            </div>
+        </div>
+        <div data-role="footer" data-theme="c" data-position="fixed">
+        <a href="#index" style="width: 300px" data-role="button" data-rel="back">Back</a>
+        </div> 
+    </div><!-- end of page #leaderboard -->
+    
+    <div data-role="page" id="instructions" data-theme="b">
+    <div data-role="header" data-theme="c">
+    <h1><span id="gameName">SudukiJS</span></h1>
+    </div>
+        <div data-role="content">
+            <h3>Instructions</h3>
+        <p>Your objective on Suduki is to fill in the missing numbers of a row in the yellow blocks. Rows should have
+        only one occurance of the numbers 1 through 9. Vertically and horizontally.</p>
+        </div>
+        <div data-role="footer" data-theme="c" data-position="fixed">
+        <a href="#index" style="width: 300px" data-role="button">Back</a>
+        </div> 
+    </div> <!-- end of page #instructions -->
+    
+    
+     <div data-role="page" id="about" data-theme="b">
+    <div data-role="header" data-theme="c">
+    <h1><span id="gameName">SudukiJS</span></h1>
+    </div>
+        <div data-role="content">
+            <h3>About</h3>
+            <center>
+        <p>Name: <span id="gameName">SudukiJS</span></p>
+        <p>Version: 1.0</p>
+        <p>Developer: Khulekani Ngongoma</p>
+        <p>Support: khulekanik@live.com</p>
+                </center>
+        </div>
+        <div data-role="footer" data-theme="c" data-position="fixed">
+        <a href="#index" style="width: 300px" data-role="button">Back</a>
+        </div> 
+    </div> <!-- end of page #about -->
+        
+<div id="game" data-role="page" data-theme="b">
+<div data-role="header" data-position="fixed" data-theme="c">
+<h2><span id="gameName"></span></h2>
+<a href="#popupPanel" id="menuBtn" data-role="button" data-rel="popup" data-icon="grid" data-iconpos="notext" data-mini="true">Menu</a>
+    </div>
+<div id="table">
+<script type="text/javascript">
+var objSudukiFetch = new SudukiFetch();
+try{
+  
+   objSudukiFetch.getCoords();
+}catch(ex){
+	console.log(ex);
+}
+
+</script>
+</div>
+<div data-role="popup" id="popupPanel"  data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
+
+    <a href="#" class="back" data-role="button" data-theme="a" data-icon="back" data-mini="true">Back</a>
+    <a href="#" id="restart" data-role="button" data-theme="a" data-icon="refresh" data-mini="true">Re-Start</a>
+    <!--<a href="#settings" data-role="button" data-theme="a" data-icon="grid" data-mini="true">Settings</a>-->
+    <div id="hint">For your Web and Mobile Solutions, you can contact me on 078 464 6803.<br /> I am based in Durban, South Africa.</div>
+    <a href="#" data-role="button" data-icon="gear" data-mini="true">Time: <span id="timer"></span></a>
+    <a href="#" data-role="button" data-icon="gear" data-mini="true">High Score: <span id="highScore">5</span></a>
+	<a href="#" data-role="button" data-icon="gear" data-mini="true">Current Score: <span id="score">50</span></a>
+	
+</div>
+
+<div data-role="popup" class="highscorepopup" data-theme="b">
+          
+        <div data-role="content" data-theme="b">
+       <div data-role="header" data-theme="b">
+       <h3>You win</h3>
+        </div>
+        <p>Congratulations! You have made it to the Leaderboard.</p>
+        <p>Your score is: <span class="newHighScore"></span></p>
+        <span class="newScoreErr"></span>
+            <label for="name" id="lblName">Please enter your name:</label>
+            <input type="text" name="name" class="name" placeholder="Name" style="height:100%;width:100%;" />
+            <a href="#" class="enterScore" data-role="button">Ok</a>
+                <div data-role="footer" data-theme="c"></div>
+            </div>
+        </div> <!-- end of highscorepopup page -->
+        
+        <div data-role="popup" class="finishpopup" data-theme="b">
+           <div style="padding:20px 40px;">
+        <div data-role="content" data-theme="b">
+ 			<div data-role="header" data-theme="b">
+       			<h3>Game Over</h3>
+        	</div>
+        <p>Your score is: <span class="currentScore"></span></p>
+        <div>
+            <a href="#" class="btnDismiss" data-role="button" style="width:100%">Dismiss</a>
+            </div>
+            </div>
+                <div data-role="footer" data-theme="c"></div>
+            </div>
+        </div> <!-- end of finishpopup page -->
+
+<div data-role="footer" data-theme="c" data-position="fixed">
+<table align="center">
+<tr><td>Wrong: </td><td><div id="wrong" style="color:red"> </div></td><td>Right: </td><td><div id="right" style="color:green"> </div></td></tr>
+</table>
+    </div>
+</div>
+	<script type="text/javascript" src="js/GameController.js"></script>
+    <script type="text/javascript" src="js/logic.js"></script>
+    <script type="text/javascript" src="js/settings_logic.js"></script>
+</body>
+</html>

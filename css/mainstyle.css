@@ -1,0 +1,26 @@
+button {width:50px;height:50px;}
+div {text-align:center;}
+#btnSp,#btnSpause,#btnQuit {width:80px;height:50px;color:red}
+
+#board{width:300px;height:300px;}
+
+#page {height:100%;width:100%;}
+
+td {height:70px;width:70px;}
+#game input {height:70px;width:70px;}
+
+#popupPanel-popup {
+    right: 0 !important;
+    left: auto !important;
+}
+#popupPanel {
+    width: 200px;
+    border: 1px solid #000;
+    border-right: none;
+    background: rgba(0,0,0,.5);
+    margin: -1px 0;
+}
+#popupPanel .ui-btn {
+    margin: 2em 15px;
+}
+
